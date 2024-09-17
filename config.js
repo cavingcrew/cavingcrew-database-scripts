@@ -7,7 +7,7 @@ const path = require('path');
 const sshConfig = {
   host: 'ssh.cavingcrew.com',
   username: 'bitnami',
-  privateKey: fs.readFileSync(path.join(os.homedir(), '.ssh', 'traginew')),
+  agent: process.env.SSH_AUTH_SOCK,
   compression: true,
   serverAliveInterval: 60,
   forwardX11: true
