@@ -1,10 +1,13 @@
 const { Client } = require('ssh2');
 const fs = require('fs');
 
+const os = require('os');
+const path = require('path');
+
 const sshConfig = {
   host: 'ssh.cavingcrew.com',
   username: 'bitnami',
-  privateKey: fs.readFileSync('~/.ssh/traginew'),
+  privateKey: fs.readFileSync(path.join(os.homedir(), '.ssh', 'traginew')),
   compression: true,
   serverAliveInterval: 60,
   forwardX11: true
