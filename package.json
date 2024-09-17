@@ -11,7 +11,8 @@
   "private": true,
   "dependencies": {
     "dotenv": "^16.4.5",
-    "mysql2": "^2.3.3",
+    "mysql2": "^3.11.3",
+    "sql-formatter": "^15.4.2",
     "ssh2": "^1.16.0"
   }
 }

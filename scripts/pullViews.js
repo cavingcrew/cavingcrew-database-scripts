@@ -3,6 +3,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const { Client } = require('ssh2');
 const config = require('../config');
+const { format } = require('sql-formatter');
 
 async function getViews(connection) {
   const [rows] = await connection.query('SHOW FULL TABLES WHERE Table_type = "VIEW"');
@@ -17,10 +18,16 @@ async function getViewDefinition(connection, viewName) {
 async function saveViewToFile(viewName, definition) {
   const dir = path.join(__dirname, '..', 'views');
   await fs.mkdir(dir, { recursive: true });
-  await fs.writeFile(path.join(dir, `${viewName}.sql`), definition);
+  const formattedDefinition = format(definition, {
+    language: 'mysql',
+    indent: '  ',
+    uppercase: true,
+    linesBetweenQueries: 2,
+  });
+  await fs.writeFile(path.join(dir, `${viewName}.sql`), formattedDefinition);
 }
 
-async function main() {
+async function pullViews() {
   const sshClient = new Client();
   
   sshClient.on('ready', async () => {
@@ -56,4 +63,8 @@ async function main() {
   }).connect(config.ssh);
 }
 
-main().catch(console.error);
+module.exports = { pullViews };
+
+if (require.main === module) {
+  pullViews().catch(console.error);
+}

@@ -3,6 +3,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const { Client } = require('ssh2');
 const config = require('../config');
+const { pullViews } = require('./pullViews');
 
 async function getViewFiles() {
   const dir = path.join(__dirname, '..', 'views');
@@ -23,6 +24,16 @@ async function executeQuery(connection, query) {
     console.error(`Error executing query: ${query.substring(0, 50)}...`);
     console.error(error);
     throw error;
+  }
+}
+
+async function deleteFile(filePath) {
+  try {
+    await fs.unlink(filePath);
+    console.log(`File deleted successfully: ${filePath}`);
+  } catch (error) {
+    console.error(`Error deleting file: ${filePath}`);
+    console.error(error);
   }
 }
 
@@ -48,14 +59,25 @@ async function main() {
         for (const file of viewFiles) {
           const viewName = path.parse(file).name;
           const viewDefinition = await readViewFile(file);
+          const filePath = path.join(__dirname, '..', 'views', file);
           
-          await executeQuery(connection, `DROP VIEW IF EXISTS \`${viewName}\``);
-          await executeQuery(connection, viewDefinition);
-          
-          console.log(`View ${viewName} updated successfully.`);
+          if (viewDefinition.trim().toLowerCase() === `drop view ${viewName}`) {
+            await executeQuery(connection, `DROP VIEW IF EXISTS \`${viewName}\``);
+            console.log(`View ${viewName} dropped successfully.`);
+            await deleteFile(filePath);
+          } else {
+            await executeQuery(connection, `DROP VIEW IF EXISTS \`${viewName}\``);
+            await executeQuery(connection, viewDefinition);
+            console.log(`View ${viewName} updated successfully.`);
+          }
         }
         
-        console.log('All views have been pushed to the server.');
+        console.log('All views have been processed.');
+        
+        // Execute pullViews after successful push
+        console.log('Executing pull operation to ensure synchronization...');
+        await pullViews();
+        
       } catch (error) {
         console.error('Error:', error);
       } finally {
@@ -66,4 +88,8 @@ async function main() {
   }).connect(config.ssh);
 }
 
-main().catch(console.error);
+if (require.main === module) {
+  main().catch(console.error);
+}
+
+module.exports = { pushViews: main };
