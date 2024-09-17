@@ -1,6 +1,6 @@
 CREATE ALGORITHM = UNDEFINED DEFINER = `root` @`%` SQL SECURITY DEFINER VIEW `jtl_member_db_stats` AS
 select
-  `u`.`id` AS `user_id`,
+  `u`.`ID` AS `user_id`,
   count(
     distinct case
       when `o`.`cc_attendance` in ('attended', 'no-register-show', 'noregistershow')
@@ -13,7 +13,7 @@ select
         'pending',
         ''
       )
-      and `o`.`user_id` = `u`.`id`
+      and `o`.`user_id` = `u`.`ID`
       and `o`.`status` = 'wc-completed' then `o`.`order_item_name`
       else case
         when `o`.`cc_attendance` in (
@@ -28,7 +28,7 @@ select
         )
         and `o`.`cc_volunteer` not in('none', '')
         and `o`.`cc_volunteer_attendance` in ('attended', 'completed', 'did it', 'attend')
-        and `o`.`user_id` = `u`.`id`
+        and `o`.`user_id` = `u`.`ID`
         and `o`.`status` = 'wc-completed' then `o`.`order_item_name`
       end
     end
@@ -72,6 +72,7 @@ select
         'latebail',
         'noshow',
         'cancelled by the Clan',
+        'cancelled by the Crew',
         'cancelled due to bad weather'
       )
       and `o`.`cc_volunteer` not in('none', '')
@@ -187,10 +188,13 @@ select
       when `o`.`cc_attendance` in (
         'cancelled by the Clan',
         'clancancel',
-        'clan-cancel'
+        'clan-cancel',
+        'crewcancel',
+        'crew-cancel',
+        'cancelled by the Crew'
       ) then `o`.`order_item_name`
     end
-  ) AS `attendance_clan_cancel`,
+  ) AS `attendance_crew_cancel`,
   count(
     distinct case
       when `o`.`cc_attendance` in ('late-bail', 'latebail') then `o`.`order_item_name`
@@ -214,7 +218,7 @@ select
 from
   (
     `jtl_member_db` `u`
-    left join `jtl_order_product_customer_lookup` `o` on (`u`.`id` = `o`.`user_id`)
+    left join `jtl_order_product_customer_lookup` `o` on (`u`.`ID` = `o`.`user_id`)
   )
 where
   `o`.`status` in (
@@ -224,4 +228,4 @@ where
     'wc-on-hold'
   )
 group by
-  `u`.`id`
+  `u`.`ID`

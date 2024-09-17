@@ -1,6 +1,6 @@
 CREATE ALGORITHM = UNDEFINED DEFINER = `root` @`%` SQL SECURITY DEFINER VIEW `jtl_member_db_scores` AS
 select
-  `u`.`id` AS `user_id`,
+  `u`.`ID` AS `user_id`,
   floor(
     coalesce(`s`.`volunteer_for_numerator`, 0) / (
       coalesce(`s`.`volunteer_for_numerator`, 0) + coalesce(`s`.`volunteer_for_but_no_attend`, 0) + coalesce(`s`.`volunteer_for_but_no_volunteer`, 0)
@@ -33,5 +33,7 @@ select
     100 - 1 * coalesce(`s`.`attendance_cancelled`, 0) - 7 * coalesce(`s`.`attendance_noshow`, 0) - 3 * coalesce(`s`.`attendance_latebail`, 0) + 2 * coalesce(`s`.`attendance_noregistershow`, 0) + 5 * coalesce(`s`.`attendance_attended`, 0)
   ) AS `attendance_score`
 from
-  `jtl_member_db` `u`
-left join `jtl_member_db_stats` `s` on `u`.`id` = `s`.`user_id`
+  (
+    `jtl_member_db` `u`
+    left join `jtl_member_db_stats` `s` on (`u`.`ID` = `s`.`user_id`)
+  )

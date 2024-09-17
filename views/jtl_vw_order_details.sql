@@ -21,5 +21,5 @@ select
 from
   (
     `jtl_order_product_customer_lookup` `o`
-    join `jtl_member_db` `m` on (`o`.`user_id` = `m`.`id`)
+    join `jtl_member_db` `m` on (`o`.`user_id` = `m`.`ID`)
   )
