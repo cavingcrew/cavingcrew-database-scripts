@@ -11,11 +11,11 @@ select
     distinct case
       when `o`.`cc_attendance` = 'attended'
       and (
-        `o`.`order_item_name` like '%Thursday%'
-        or `o`.`order_item_name` like '%Horizontal%'
+        `o`.`order_item_name` like '%Tuesday%'
+        or `o`.`order_item_name` like '%Evening%'
       ) then `o`.`order_item_name`
     end
-  ) AS `attendance_horizontal_thursday_attended`,
+  ) AS `attendance_tuesday_evening_attended`,
   count(
     distinct case
       when `o`.`cc_attendance` = 'attended'
@@ -32,13 +32,7 @@ select
       ) then `o`.`order_item_name`
     end
   ) AS `attendance_day_attended`,
-  count(
-    distinct case
-      when `o`.`cc_attendance` = 'attended'
-      and `o`.`order_item_name` like '%Wednesday%' then `o`.`order_item_name`
-    end
-  ) AS `attendance_wednesday_attended`,
-  count(
+    count(
     distinct case
       when `o`.`cc_attendance` = 'attended'
       and (
