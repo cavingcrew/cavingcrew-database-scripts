@@ -1,643 +1,114 @@
 CREATE ALGORITHM = UNDEFINED DEFINER = `root` @`%` SQL SECURITY DEFINER VIEW `jtl_member_db` AS
 select
-  `u`.`ID` AS `id`,
+  `u`.`ID` AS `ID`,
   `u`.`user_login` AS `user_login`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'nickname'
-  ) AS `nickname`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'first_name'
-  ) AS `first_name`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'last_name'
-  ) AS `last_name`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'billing_first_name'
-  ) AS `billing_first_name`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'billing_last_name'
-  ) AS `billing_last_name`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'billing_email'
-  ) AS `billing_email`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'billing_address_1'
-  ) AS `billing_address_1`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'billing_address_2'
-  ) AS `billing_address_2`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'billing_city'
-  ) AS `billing_city`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'billing_postcode'
-  ) AS `billing_postcode`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'billing_country'
-  ) AS `billing_country`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-emergency-contact-name'
-  ) AS `admin-emergency-contact-name`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-emergency-contact-phone'
-  ) AS `admin-emergency-contact-phone`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-first-timer-question'
-  ) AS `admin-first-timer-question`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-covid-agreement'
-  ) AS `admin-covid-agreement`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-no-insurance-disclaimer'
-  ) AS `admin-no-insurance-disclaimer`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-insurance-status'
-  ) AS `admin-insurance-status`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-participation-statement-one'
-  ) AS `admin-participation-statement-one`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-participation-statement-two'
-  ) AS `admin-participation-statement-two`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-covid-cautious'
-  ) AS `admin-covid-cautious`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-diet-allergies-health-extra-info'
-  ) AS `admin-diet-allergies-health-extra-info`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-dietary-requirements'
-  ) AS `admin-dietary-requirements`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'skills-horizontal'
-  ) AS `skills-horizontal`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'skills-leading-srt'
-  ) AS `skills-leading-srt`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'skills-srt'
-  ) AS `skills-srt`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'skills-leading-horizontal'
-  ) AS `skills-leading-horizontal`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'caving-horizontal-happy-to-second-or-lead'
-  ) AS `caving-horizontal-happy-to-second-or-lead`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'gear-bringing-evening-or-day-trip'
-  ) AS `gear-bringing-evening-or-day-trip`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'transport-need-lift'
-  ) AS `transport-need-lift`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'transport-will-you-give-lift'
-  ) AS `transport-will-you-give-lift`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'transport-depature-time'
-  ) AS `transport-depature-time`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'transport-leaving-location'
-  ) AS `transport-leaving-location`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-phone-number'
-  ) AS `admin-phone-number`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'gear-rope-length'
-  ) AS `gear-rope-length`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'gear-walking-equipment-weekend'
-  ) AS `gear-walking-equipment-weekend`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = '_order_count'
-  ) AS `_order_count`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = '_last_order'
-  ) AS `_last_order`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'paying_customer'
-  ) AS `paying_customer`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'last_update'
-  ) AS `last_update`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'wc_last_active'
-  ) AS `wc_last_active`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'billing_phone'
-  ) AS `billing_phone`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-will-you-not-flake-please'
-  ) AS `admin-will-you-not-flake-please`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'shipping_address_1'
-  ) AS `shipping_address_1`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'shipping_address_2'
-  ) AS `shipping_address_2`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'shipping_city'
-  ) AS `shipping_city`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'shipping_postcode'
-  ) AS `shipping_postcode`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'shipping_country'
-  ) AS `shipping_country`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'caving-srt-or-horizontal-preference'
-  ) AS `caving-srt-or-horizontal-preference`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-club-constitution-acceptance'
-  ) AS `admin-club-constitution-acceptance`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'bca_member'
-  ) AS `_legacy_info_bca_member`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'bca_club'
-  ) AS `_legacy_info_bca_club`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-personal-year-of-birth'
-  ) AS `admin-personal-year-of-birth`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-personal-pronouns'
-  ) AS `admin-personal-pronouns`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-car-registration'
-  ) AS `admin-car-registration`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-health-shoulder'
-  ) AS `admin-health-shoulder`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-health-asthma'
-  ) AS `admin-health-asthma`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-health-missing-dose'
-  ) AS `admin-health-missing-dose`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-other-club-name'
-  ) AS `admin-other-club-name`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin-bca-number'
-  ) AS `admin-bca-number`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'misc-any-other-requests'
-  ) AS `misc-any-other-requests`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'cc_member'
-  ) AS `cc_member`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'skills-leading-coaching'
-  ) AS `skills-leading-coaching`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'membership_managed'
-  ) AS `membership_managed`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'membership_renewal_date'
-  ) AS `membership_renewal_date`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'caving-srt-happy-to-second-or-lead'
-  ) AS `caving-srt-happy-to-second-or-lead`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin_agm_voting_code_2024'
-  ) AS `admin_agm_voting_code_2024`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'admin_agm_voting_code_2023'
-  ) AS `admin_agm_voting_code_2023`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'membership_joining_date'
-  ) AS `membership_joining_date`,
-  (
-    select
-      `jtl_usermeta`.`meta_value`
-    from
-      `jtl_usermeta`
-    where
-      `jtl_usermeta`.`user_id` = `u`.`ID`
-      and `jtl_usermeta`.`meta_key` = 'membership_cancellation_date'
-  ) AS `membership_cancellation_date`,
-  (
-    select
-      `jtl_wc_customer_lookup`.`customer_id`
-    from
-      `jtl_wc_customer_lookup`
-    where
-      `jtl_wc_customer_lookup`.`user_id` = `u`.`ID`
-  ) AS `customer_id`,
-  (
-    select
-      `jtl_users`.`user_email`
-    from
-      `jtl_users`
-    where
-      `jtl_users`.`ID` = `u`.`ID`
-  ) AS `user_email`
+  max(case when `um`.`meta_key` = 'nickname' then `um`.`meta_value` end) AS `nickname`,
+  max(case when `um`.`meta_key` = 'first_name' then `um`.`meta_value` end) AS `first_name`,
+  max(case when `um`.`meta_key` = 'last_name' then `um`.`meta_value` end) AS `last_name`,
+  max(case when `um`.`meta_key` = 'billing_first_name' then `um`.`meta_value` end) AS `billing_first_name`,
+  max(case when `um`.`meta_key` = 'billing_last_name' then `um`.`meta_value` end) AS `billing_last_name`,
+  max(case when `um`.`meta_key` = 'billing_email' then `um`.`meta_value` end) AS `billing_email`,
+  max(case when `um`.`meta_key` = 'billing_address_1' then `um`.`meta_value` end) AS `billing_address_1`,
+  max(case when `um`.`meta_key` = 'billing_address_2' then `um`.`meta_value` end) AS `billing_address_2`,
+  max(case when `um`.`meta_key` = 'billing_city' then `um`.`meta_value` end) AS `billing_city`,
+  max(case when `um`.`meta_key` = 'billing_postcode' then `um`.`meta_value` end) AS `billing_postcode`,
+  max(case when `um`.`meta_key` = 'billing_country' then `um`.`meta_value` end) AS `billing_country`,
+  max(case when `um`.`meta_key` = 'admin-emergency-contact-name' then `um`.`meta_value` end) AS `admin-emergency-contact-name`,
+  max(case when `um`.`meta_key` = 'admin-emergency-contact-phone' then `um`.`meta_value` end) AS `admin-emergency-contact-phone`,
+  max(case when `um`.`meta_key` = 'admin-first-timer-question' then `um`.`meta_value` end) AS `admin-first-timer-question`,
+  max(case when `um`.`meta_key` = 'admin-first-timer-indoor' then `um`.`meta_value` end) AS `admin-first-timer-indoor`,
+  max(case when `um`.`meta_key` = 'admin-first-timer-outdoor' then `um`.`meta_value` end) AS `admin-first-timer-outdoor`,
+  max(case when `um`.`meta_key` = 'admin-first-timer-social' then `um`.`meta_value` end) AS `admin-first-timer-social`,
+  max(case when `um`.`meta_key` = 'admin-first-timer-training' then `um`.`meta_value` end) AS `admin-first-timer-training`,
+  max(case when `um`.`meta_key` = 'admin-first-timer-overnight' then `um`.`meta_value` end) AS `admin-first-timer-overnight`,
+  max(case when `um`.`meta_key` = 'admin-covid-agreement' then `um`.`meta_value` end) AS `admin-covid-agreement`,
+  max(case when `um`.`meta_key` = 'admin-no-insurance-disclaimer' then `um`.`meta_value` end) AS `admin-no-insurance-disclaimer`,
+  max(case when `um`.`meta_key` = 'admin-insurance-status' then `um`.`meta_value` end) AS `admin-insurance-status`,
+  max(case when `um`.`meta_key` = 'admin-join-the-bmc' then `um`.`meta_value` end) AS `admin-join-the-bmc`,
+  max(case when `um`.`meta_key` = 'admin-participation-statement-one' then `um`.`meta_value` end) AS `admin-participation-statement-one`,
+  max(case when `um`.`meta_key` = 'admin-participation-statement-two' then `um`.`meta_value` end) AS `admin-participation-statement-two`,
+  max(case when `um`.`meta_key` = 'admin-covid-cautious' then `um`.`meta_value` end) AS `admin-covid-cautious`,
+  max(case when `um`.`meta_key` = 'admin-diet-allergies-health-extra-info' then `um`.`meta_value` end) AS `admin-diet-allergies-health-extra-info`,
+  max(case when `um`.`meta_key` = 'admin-dietary-requirements' then `um`.`meta_value` end) AS `admin-dietary-requirements`,
+  max(case when `um`.`meta_key` = 'skills-horizontal' then `um`.`meta_value` end) AS `skills-horizontal`,
+  max(case when `um`.`meta_key` = 'skills-leading-srt' then `um`.`meta_value` end) AS `skills-leading-srt`,
+  max(case when `um`.`meta_key` = 'skills-srt' then `um`.`meta_value` end) AS `skills-srt`,
+  max(case when `um`.`meta_key` = 'skills-leading-horizontal' then `um`.`meta_value` end) AS `skills-leading-horizontal`,
+  max(case when `um`.`meta_key` = 'caving-horizontal-happy-to-second-or-lead' then `um`.`meta_value` end) AS `caving-horizontal-happy-to-second-or-lead`,
+  max(case when `um`.`meta_key` = 'skills-belaying' then `um`.`meta_value` end) AS `skills-belaying`,
+  max(case when `um`.`meta_key` = 'climbing-discipline-preference' then `um`.`meta_value` end) AS `climbing-discipline-preference`,
+  max(case when `um`.`meta_key` = 'skills-sport-climbing' then `um`.`meta_value` end) AS `skills-sport-climbing`,
+  max(case when `um`.`meta_key` = 'skills-trad-climbing' then `um`.`meta_value` end) AS `skills-trad-climbing`,
+  max(case when `um`.`meta_key` = 'climbing-happy-to-supervise' then `um`.`meta_value` end) AS `climbing-happy-to-supervise`,
+  max(case when `um`.`meta_key` = 'gear-bringing-evening-or-day-trip' then `um`.`meta_value` end) AS `gear-bringing-evening-or-day-trip`,
+  max(case when `um`.`meta_key` = 'transport-need-lift' then `um`.`meta_value` end) AS `transport-need-lift`,
+  max(case when `um`.`meta_key` = 'transport-will-you-give-lift' then `um`.`meta_value` end) AS `transport-will-you-give-lift`,
+  max(case when `um`.`meta_key` = 'transport-depature-time' then `um`.`meta_value` end) AS `transport-depature-time`,
+  max(case when `um`.`meta_key` = 'transport-leaving-location' then `um`.`meta_value` end) AS `transport-leaving-location`,
+  max(case when `um`.`meta_key` = 'climbing_outdoor_crag_location_preference' then `um`.`meta_value` end) AS `climbing_outdoor_crag_location_preference`,
+  max(case when `um`.`meta_key` = 'admin-phone-number' then `um`.`meta_value` end) AS `admin-phone-number`,
+  max(case when `um`.`meta_key` = 'gear-rope-length' then `um`.`meta_value` end) AS `gear-rope-length`,
+  max(case when `um`.`meta_key` = 'gear-walking-equipment-weekend' then `um`.`meta_value` end) AS `gear-walking-equipment-weekend`,
+  max(case when `um`.`meta_key` = 'gear-quickdraws-number' then `um`.`meta_value` end) AS `gear-quickdraws-number`,
+  max(case when `um`.`meta_key` = '_order_count' then `um`.`meta_value` end) AS `_order_count`,
+  max(case when `um`.`meta_key` = '_last_order' then `um`.`meta_value` end) AS `_last_order`,
+  max(case when `um`.`meta_key` = 'paying_customer' then `um`.`meta_value` end) AS `paying_customer`,
+  max(case when `um`.`meta_key` = 'last_update' then `um`.`meta_value` end) AS `last_update`,
+  max(case when `um`.`meta_key` = 'wc_last_active' then `um`.`meta_value` end) AS `wc_last_active`,
+  max(case when `um`.`meta_key` = 'billing_phone' then `um`.`meta_value` end) AS `billing_phone`,
+  max(case when `um`.`meta_key` = 'admin-will-you-not-flake-please' then `um`.`meta_value` end) AS `admin-will-you-not-flake-please`,
+  max(case when `um`.`meta_key` = 'shipping_address_1' then `um`.`meta_value` end) AS `shipping_address_1`,
+  max(case when `um`.`meta_key` = 'shipping_address_2' then `um`.`meta_value` end) AS `shipping_address_2`,
+  max(case when `um`.`meta_key` = 'shipping_city' then `um`.`meta_value` end) AS `shipping_city`,
+  max(case when `um`.`meta_key` = 'shipping_postcode' then `um`.`meta_value` end) AS `shipping_postcode`,
+  max(case when `um`.`meta_key` = 'shipping_country' then `um`.`meta_value` end) AS `shipping_country`,
+  max(case when `um`.`meta_key` = 'payment_customer_id' then `um`.`meta_value` end) AS `payment_customer_id`,
+  max(case when `um`.`meta_key` = 'payment_customer_email' then `um`.`meta_value` end) AS `payment_customer_email`,
+  max(case when `um`.`meta_key` = 'caving-srt-or-horizontal-preference' then `um`.`meta_value` end) AS `caving-srt-or-horizontal-preference`,
+  max(case when `um`.`meta_key` = 'admin-club-constitution-acceptance' then `um`.`meta_value` end) AS `admin-club-constitution-acceptance`,
+  max(case when `um`.`meta_key` = 'bca_member' then `um`.`meta_value` end) AS `_legacy_info_bca_member`,
+  max(case when `um`.`meta_key` = 'bca_club' then `um`.`meta_value` end) AS `_legacy_info_bca_club`,
+  max(case when `um`.`meta_key` = 'admin-over18' then `um`.`meta_value` end) AS `admin-over18`,
+  max(case when `um`.`meta_key` = 'admin-dob' then `um`.`meta_value` end) AS `admin-dob`,
+  max(case when `um`.`meta_key` = 'admin-personal-year-of-birth' then `um`.`meta_value` end) AS `admin-personal-year-of-birth`,
+  max(case when `um`.`meta_key` = 'admin-personal-pronouns' then `um`.`meta_value` end) AS `admin-personal-pronouns`,
+  max(case when `um`.`meta_key` = 'admin-car-registration' then `um`.`meta_value` end) AS `admin-car-registration`,
+  max(case when `um`.`meta_key` = 'admin-health-shoulder' then `um`.`meta_value` end) AS `admin-health-shoulder`,
+  max(case when `um`.`meta_key` = 'admin-health-asthma' then `um`.`meta_value` end) AS `admin-health-asthma`,
+  max(case when `um`.`meta_key` = 'admin-health-missing-dose' then `um`.`meta_value` end) AS `admin-health-missing-dose`,
+  max(case when `um`.`meta_key` = 'admin-other-club-name' then `um`.`meta_value` end) AS `admin-other-club-name`,
+  max(case when `um`.`meta_key` = 'admin-bca-number' then `um`.`meta_value` end) AS `admin-bca-number`,
+  max(case when `um`.`meta_key` = 'misc-any-other-requests' then `um`.`meta_value` end) AS `misc-any-other-requests`,
+  max(case when `um`.`meta_key` = 'admin-can-you-help' then `um`.`meta_value` end) AS `admin-can-you-help`,
+  max(case when `um`.`meta_key` = 'admin-can-you-help-weekend' then `um`.`meta_value` end) AS `admin-can-you-help-weekend`,
+  max(case when `um`.`meta_key` = 'admin-can-you-help-outdoors' then `um`.`meta_value` end) AS `admin-can-you-help-outdoors`,
+  max(case when `um`.`meta_key` = 'admin-can-you-help-organisation' then `um`.`meta_value` end) AS `admin-can-you-help-organisation`,
+  max(case when `um`.`meta_key` = 'admin-can-you-help-social' then `um`.`meta_value` end) AS `admin-can-you-help-social`,
+  max(case when `um`.`meta_key` = 'admin-can-you-help-training' then `um`.`meta_value` end) AS `admin-can-you-help-training`,
+  max(case when `um`.`meta_key` = 'admin-can-you-help-vacation' then `um`.`meta_value` end) AS `admin-can-you-help-vacation`,
+  max(case when `um`.`meta_key` = 'cc_member' then `um`.`meta_value` end) AS `cc_member`,
+  max(case when `um`.`meta_key` = 'skills-leading-coaching' then `um`.`meta_value` end) AS `skills-leading-coaching`,
+  max(case when `um`.`meta_key` = 'membership_managed' then `um`.`meta_value` end) AS `membership_managed`,
+  max(case when `um`.`meta_key` = 'membership_renewal_date' then `um`.`meta_value` end) AS `membership_renewal_date`,
+  max(case when `um`.`meta_key` = 'caving-srt-happy-to-second-or-lead' then `um`.`meta_value` end) AS `caving-srt-happy-to-second-or-lead`,
+  max(case when `um`.`meta_key` = 'committee_current' then `um`.`meta_value` end) AS `committee_current`,
+  max(case when `um`.`meta_key` = 'cc_volunteer' then `um`.`meta_value` end) AS `cc_volunteer`,
+  max(case when `um`.`meta_key` = 'membership_leaving_date' then `um`.`meta_value` end) AS `membership_leaving_date`,
+  max(case when `um`.`meta_key` = 'cc_membership_cancellation_intent_date' then `um`.`meta_value` end) AS `cc_membership_cancellation_intent_date`,
+  max(case when `um`.`meta_key` = 'admin-membership-type' then `um`.`meta_value` end) AS `admin-membership-type`,
+  max(case when `um`.`meta_key` = 'admin_agm_voting_code_2024' then `um`.`meta_value` end) AS `admin_agm_voting_code_2024`,
+  max(case when `um`.`meta_key` = 'admin_agm_voting_code_2023' then `um`.`meta_value` end) AS `admin_agm_voting_code_2023`,
+  max(case when `um`.`meta_key` = 'membership_joining_date' then `um`.`meta_value` end) AS `membership_joining_date`,
+  max(case when `um`.`meta_key` = 'membership_cancellation_date' then `um`.`meta_value` end) AS `membership_cancellation_date`,
+  max(case when `um`.`meta_key` = 'admin-club-constitution-acceptance-noted-date' then `um`.`meta_value` end) AS `admin-club-constitution-acceptance-noted-date`,
+  max(case when `um`.`meta_key` = 'admin-code-of-conduct-accepted-noted-date' then `um`.`meta_value` end) AS `admin-code-of-conduct-accepted-noted-date`,
+  max(case when `um`.`meta_key` = 'admin-bmc-membership-number' then `um`.`meta_value` end) AS `admin-bmc-membership-number`,
+  max(case when `um`.`meta_key` = 'cc_membership_join_date' then `um`.`meta_value` end) AS `cc_membership_join_date`,
+  max(case when `um`.`meta_key` = 'admin-code-of-conduct-accepted' then `um`.`meta_value` end) AS `admin-code-of-conduct-accepted`,
+  (select `jtl_wc_customer_lookup`.`customer_id` from `jtl_wc_customer_lookup` where `jtl_wc_customer_lookup`.`user_id` = `u`.`ID`) AS `customer_id`,
+  `u`.`user_email` AS `user_email`
 from
   `jtl_users` `u`
+  left join `jtl_usermeta` `um` on (`u`.`ID` = `um`.`user_id`)
+group by
+  `u`.`ID`
