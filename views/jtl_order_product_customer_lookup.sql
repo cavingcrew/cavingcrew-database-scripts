@@ -14,6 +14,42 @@ select
       `jtl_postmeta`.`post_id` = `a`.`order_id`
       and `jtl_postmeta`.`meta_key` = 'cc_attendance'
   ) AS `cc_attendance`,
+  (
+    select
+      `jtl_postmeta`.`meta_value`
+    from
+      `jtl_postmeta`
+    where
+      `jtl_postmeta`.`post_id` = `a`.`order_id`
+      and `jtl_postmeta`.`meta_key` = 'cc_volunteer'
+  ) AS `cc_volunteer`,
+  (
+    select
+      `jtl_postmeta`.`meta_value`
+    from
+      `jtl_postmeta`
+    where
+      `jtl_postmeta`.`post_id` = `a`.`order_id`
+      and `jtl_postmeta`.`meta_key` = 'cc_volunteer_attendance'
+  ) AS `cc_volunteer_attendance`,
+  (
+    select
+      `jtl_postmeta`.`meta_value`
+    from
+      `jtl_postmeta`
+    where
+      `jtl_postmeta`.`post_id` = `a`.`order_id`
+      and `jtl_postmeta`.`meta_key` = 'cc_location'
+  ) AS `cc_location`,
+  (
+    select
+      `jtl_postmeta`.`meta_value`
+    from
+      `jtl_postmeta`
+    where
+      `jtl_postmeta`.`post_id` = `a`.`order_id`
+      and `jtl_postmeta`.`meta_key` = 'memberbot_order_category'
+  ) AS `memberbot_order_category`,
   coalesce(
     (
       select distinct
@@ -62,7 +98,34 @@ select
       `t`.`post_id` = `a`.`order_id`
       and `t`.`meta_key` = '_customer_user'
   ) AS `user_id`,
-  `d`.`post_date` AS `order_created`
+  `d`.`post_date` AS `order_created`,
+  (
+    select
+      `jtl_postmeta`.`meta_value`
+    from
+      `jtl_postmeta`
+    where
+      `jtl_postmeta`.`post_id` = `a`.`order_id`
+      and `jtl_postmeta`.`meta_key` = 'cc_attendance_sim'
+  ) AS `cc_attendance_sim`,
+  (
+    select
+      `jtl_postmeta`.`meta_value`
+    from
+      `jtl_postmeta`
+    where
+      `jtl_postmeta`.`post_id` = `a`.`order_id`
+      and `jtl_postmeta`.`meta_key` = 'cc_volunteer_attendance_sim'
+  ) AS `cc_volunteer_attendance_sim`,
+  (
+    select
+      `jtl_postmeta`.`meta_value`
+    from
+      `jtl_postmeta`
+    where
+      `jtl_postmeta`.`post_id` = `a`.`order_id`
+      and `jtl_postmeta`.`meta_key` = 'cc_volunteer_sim'
+  ) AS `cc_volunteer_sim`
 from
   (
     (
