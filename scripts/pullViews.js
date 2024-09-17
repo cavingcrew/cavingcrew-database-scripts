@@ -1,21 +1,8 @@
-require('dotenv').config();
 const mysql = require('mysql2/promise');
 const fs = require('fs').promises;
 const path = require('path');
 const { Client } = require('ssh2');
-
-const sshConfig = {
-  host: 'cavingcrew',
-  username: 'bitnami',
-  privateKey: require('fs').readFileSync('/path/to/your/private/key')
-};
-
-const dbConfig = {
-  host: 'localhost',
-  user: 'root',
-  password: process.env.DB_PASSWORD,
-  database: 'jtl_cavingcrew_com'
-};
+const config = require('../config');
 
 async function getViews(connection) {
   const [rows] = await connection.query('SHOW FULL TABLES WHERE Table_type = "VIEW"');
@@ -43,7 +30,7 @@ async function main() {
       if (err) throw err;
       
       const connection = await mysql.createConnection({
-        ...dbConfig,
+        ...config.db,
         stream
       });
 
@@ -64,7 +51,7 @@ async function main() {
         sshClient.end();
       }
     });
-  }).connect(sshConfig);
+  }).connect(config.ssh);
 }
 
 main().catch(console.error);
