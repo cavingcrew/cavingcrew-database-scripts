@@ -29,8 +29,10 @@ async function main() {
     sshClient.forwardOut('127.0.0.1', 3306, '127.0.0.1', 3306, async (err, stream) => {
       if (err) throw err;
       
+      const dbPassword = await config.getDbPassword();
       const connection = await mysql.createConnection({
         ...config.db,
+        password: dbPassword,
         stream
       });
 
