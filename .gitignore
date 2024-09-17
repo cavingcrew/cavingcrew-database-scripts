@@ -1,0 +1,7 @@
+
+.git/**
+node_modules/**
+/.clasprc.json
+.aider*
+.idea*
+package-lock.json
