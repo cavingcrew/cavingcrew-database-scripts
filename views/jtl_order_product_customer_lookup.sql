@@ -58,6 +58,17 @@ select
         `jtl_postmeta`
       where
         `jtl_postmeta`.`post_id` = `b`.`product_id`
+        and `jtl_postmeta`.`meta_key` = 'event_start_date_time'
+      limit
+        1
+    ),
+    (
+      select distinct
+        `jtl_postmeta`.`meta_value`
+      from
+        `jtl_postmeta`
+      where
+        `jtl_postmeta`.`post_id` = `b`.`product_id`
         and `jtl_postmeta`.`meta_key` = 'event_start_date'
       limit
         1
