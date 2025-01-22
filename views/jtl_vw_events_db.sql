@@ -206,6 +206,57 @@ select
       when `pm`.`meta_key` = 'event_volunteering_how_does_it_work' then `pm`.`meta_value`
     end
   ) AS `event_volunteering_how_does_it_work`,
+  /* Event Requirement Fields */
+  max(
+    case
+      when `pm`.`meta_key` = 'event_cave_name' then `pm`.`meta_value`
+    end
+  ) AS `event_cave_name`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_gear_required' then `pm`.`meta_value`
+    end
+  ) AS `event_gear_required`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_must_caved_with_us_before' then `pm`.`meta_value`
+    end
+  ) AS `event_must_caved_with_us_before`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_skills_required' then `pm`.`meta_value`
+    end
+  ) AS `event_skills_required`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_cost' then `pm`.`meta_value`
+    end
+  ) AS `event_cost`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_trip_leader' then `pm`.`meta_value`
+    end
+  ) AS `event_trip_leader`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_non-members_welcome' then `pm`.`meta_value`
+    end
+  ) AS `event_non-members_welcome`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_why_are_only_members_allowed' then `pm`.`meta_value`
+    end
+  ) AS `event_why_are_only_members_allowed`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_volunteering_required' then `pm`.`meta_value`
+    end
+  ) AS `event_volunteering_required`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_u18s_come' then `pm`.`meta_value`
+    end
+  ) AS `event_u18s_come`,
   max(
     case
       when `pm`.`meta_key` = 'event_min_skills' then `pm`.`meta_value`
