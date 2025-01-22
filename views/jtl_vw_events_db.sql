@@ -336,6 +336,20 @@ from
       left join `jtl_term_taxonomy` `tt` on (`tr`.`term_taxonomy_id` = `tt`.`term_taxonomy_id`)
     )
     left join `jtl_terms` `t` on (`tt`.`term_id` = `t`.`term_id`)
+    left join (
+      select 
+        oi.order_item_id,
+        oim.meta_value as product_id,
+        count(*) as pending_attendees
+      from jtl_woocommerce_order_items oi
+      join jtl_woocommerce_order_itemmeta oim 
+        on oi.order_item_id = oim.order_item_id
+        and oim.meta_key = '_product_id'
+      join jtl_posts o 
+        on o.ID = oi.order_id
+        and o.post_status in ('wc-pending', 'wc-on-hold')
+      group by oim.meta_value
+    ) pending_counts on pending_counts.product_id = p.ID
   )
 where
   `p`.`post_type` = 'product'
