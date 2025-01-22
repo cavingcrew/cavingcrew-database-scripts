@@ -28,24 +28,42 @@ select
       `p`.`post_type` = 'variable',
       (
         select
-          sum(`pmv`.`meta_value` + 0)
+          sum(CAST(pmv_stock.meta_value AS UNSIGNED))
         from
-          (
-            `jtl_cavingcrew_com`.`jtl_posts` `v`
-            left join `jtl_cavingcrew_com`.`jtl_postmeta` `pmv` on (`v`.`ID` = `pmv`.`post_id`)
-          )
+          `jtl_cavingcrew_com`.`jtl_posts` `v`
+          left join `jtl_cavingcrew_com`.`jtl_postmeta` `pmv_manage` 
+            on v.ID = pmv_manage.post_id 
+            and pmv_manage.meta_key = '_manage_stock'
+          left join `jtl_cavingcrew_com`.`jtl_postmeta` `pmv_stock` 
+            on v.ID = pmv_stock.post_id 
+            and pmv_stock.meta_key = '_stock'
         where
           `v`.`post_parent` = `p`.`ID`
-          and `pmv`.`meta_key` = '_stock'
           and `v`.`post_type` = 'product_variation'
+          and pmv_manage.meta_value = 'yes'
       ),
-      max(
-        case
-          when `pm`.`meta_key` = '_stock' then `pm`.`meta_value`
-        end
-      )
+      case
+        when (
+          select meta_value 
+          from `jtl_cavingcrew_com`.`jtl_postmeta` 
+          where post_id = p.ID 
+            and meta_key = '_manage_stock'
+            and meta_value = 'yes'
+        ) then max(CAST(pm.meta_value AS UNSIGNED))
+        else 0
+      end
     ),
     0
+  ) - (
+    select count(distinct oi.order_item_id)
+    from `jtl_cavingcrew_com`.`jtl_woocommerce_order_items` oi
+    join `jtl_cavingcrew_com`.`jtl_woocommerce_order_itemmeta` oim 
+      on oi.order_item_id = oim.order_item_id
+      and oim.meta_key = '_product_id'
+      and oim.meta_value = p.ID
+    join `jtl_cavingcrew_com`.`jtl_posts` o 
+      on o.ID = oi.order_id
+      and o.post_status = 'wc-processing'
   ) AS `open_spaces`,
   max(
     case
