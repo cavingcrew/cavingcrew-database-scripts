@@ -211,17 +211,12 @@ select
     case
       when `pm`.`meta_key` = 'event_min_skills' then `pm`.`meta_value`
     end
-  ) AS `event_min_skills`,
+  ) AS `minimum_skills`,
   max(
     case
       when `pm`.`meta_key` = 'event_min_gear' then `pm`.`meta_value`
     end
-  ) AS `event_min_gear`,
-  max(
-    case
-      when `pm`.`meta_key` = 'event_for_u18s' then `pm`.`meta_value`
-    end
-  ) AS `event_for_u18s`,
+  ) AS `minimum_gear`,
   max(
     case
       when `pm`.`meta_key` = 'event_prior_experience' then `pm`.`meta_value`
