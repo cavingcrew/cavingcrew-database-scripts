@@ -206,7 +206,6 @@ select
       when `pm`.`meta_key` = 'event_volunteering_how_does_it_work' then `pm`.`meta_value`
     end
   ) AS `event_volunteering_how_does_it_work`,
-  /* Event Requirements Fields - Added 2024-03-15 */
   max(
     case
       when `pm`.`meta_key` = 'event_min_skills' then `pm`.`meta_value`
