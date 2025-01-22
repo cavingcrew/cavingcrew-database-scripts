@@ -734,6 +734,11 @@ select
   ) AS `caving_trip_leaving_postcode_geocoded_last_updated`,
   max(
     case
+      when `um`.`meta_key` = 'gear_wellies_size' then `um`.`meta_value`
+    end
+  ) AS `gear_wellies_size`,
+  max(
+    case
       when `um`.`meta_key` = 'admin_training_join_admin_team' then `um`.`meta_value`
     end
   ) AS `admin_training_join_admin_team`,
