@@ -284,6 +284,31 @@ select
   ) AS `admin-health-shoulder`,
   max(
     case
+      when `um`.`meta_key` = 'admin-health-impairment-through-medication' then `um`.`meta_value`
+    end
+  ) AS `admin-health-impairment-through-medication`,
+  max(
+    case
+      when `um`.`meta_key` = 'admin_u18_child_name_of_supervisor' then `um`.`meta_value`
+    end
+  ) AS `admin_u18_child_name_of_supervisor`,
+  max(
+    case
+      when `um`.`meta_key` = 'admin_u18_participation_statement_one' then `um`.`meta_value`
+    end
+  ) AS `admin_u18_participation_statement_one`,
+  max(
+    case
+      when `um`.`meta_key` = 'admin_u18_participation_statement_two' then `um`.`meta_value`
+    end
+  ) AS `admin_u18_participation_statement_two`,
+  max(
+    case
+      when `um`.`meta_key` = 'admin_u18_supervisor_name_of_child' then `um`.`meta_value`
+    end
+  ) AS `admin_u18_supervisor_name_of_child`,
+  max(
+    case
       when `um`.`meta_key` = 'admin-health-asthma' then `um`.`meta_value`
     end
   ) AS `admin-health-asthma`,
