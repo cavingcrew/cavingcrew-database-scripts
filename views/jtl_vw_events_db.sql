@@ -2,6 +2,7 @@ CREATE ALGORITHM = UNDEFINED DEFINER = `root` @`%` SQL SECURITY DEFINER VIEW `jt
 select
   `p`.`ID` AS `product_id`,
   `p`.`post_title` AS `product_name`,
+  `p`.`post_status` AS `post_status`,
   max(
     case
       when `pm`.`meta_key` = '_price' then `pm`.`meta_value`
@@ -22,6 +23,16 @@ select
       when `pm`.`meta_key` = '_stock' then `pm`.`meta_value`
     end
   ) AS `stock`,
+  COALESCE(
+    IF(p.post_type = 'variable',
+      (SELECT SUM(pmv.meta_value+0)
+       FROM jtl_posts v
+       LEFT JOIN jtl_postmeta pmv ON v.ID = pmv.post_id
+       WHERE v.post_parent = p.ID
+         AND pmv.meta_key = '_stock'
+         AND v.post_type = 'product_variation'),
+      MAX(CASE WHEN pm.meta_key = '_stock' THEN pm.meta_value END)
+    ), 0) AS `open_spaces`,
   max(
     case
       when `pm`.`meta_key` = '_stock_status' then `pm`.`meta_value`
