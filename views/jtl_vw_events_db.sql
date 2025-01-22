@@ -23,16 +23,30 @@ select
       when `pm`.`meta_key` = '_stock' then `pm`.`meta_value`
     end
   ) AS `stock`,
-  COALESCE(
-    IF(p.post_type = 'variable',
-      (SELECT SUM(pmv.meta_value+0)
-       FROM jtl_posts v
-       LEFT JOIN jtl_postmeta pmv ON v.ID = pmv.post_id
-       WHERE v.post_parent = p.ID
-         AND pmv.meta_key = '_stock'
-         AND v.post_type = 'product_variation'),
-      MAX(CASE WHEN pm.meta_key = '_stock' THEN pm.meta_value END)
-    ), 0) AS `open_spaces`,
+  coalesce(
+    if(
+      `p`.`post_type` = 'variable',
+      (
+        select
+          sum(`pmv`.`meta_value` + 0)
+        from
+          (
+            `jtl_posts` `v`
+            left join `jtl_postmeta` `pmv` on (`v`.`ID` = `pmv`.`post_id`)
+          )
+        where
+          `v`.`post_parent` = `p`.`ID`
+          and `pmv`.`meta_key` = '_stock'
+          and `v`.`post_type` = 'product_variation'
+      ),
+      max(
+        case
+          when `pm`.`meta_key` = '_stock' then `pm`.`meta_value`
+        end
+      )
+    ),
+    0
+  ) AS `open_spaces`,
   max(
     case
       when `pm`.`meta_key` = '_stock_status' then `pm`.`meta_value`
