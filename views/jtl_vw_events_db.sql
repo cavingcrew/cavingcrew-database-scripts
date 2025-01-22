@@ -433,6 +433,31 @@ select
   ) AS `event_finish_date`,
   max(
     case
+      when `pm`.`meta_key` = 'event_finish_date_time' then `pm`.`meta_value`
+    end
+  ) AS `event_finish_date_time`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_possible_objectives' then `pm`.`meta_value`
+    end
+  ) AS `event_possible_objectives`,
+  max(
+    case
+      when `pm`.`meta_key` = 'what_is_the_minimum_skill_required_for_this_trip' then `pm`.`meta_value`
+    end
+  ) AS `what_is_the_minimum_skill_required_for_this_trip`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_climbing_trip_or_other_things' then `pm`.`meta_value`
+    end
+  ) AS `event_climbing_trip_or_other_things`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_accomodation_description' then `pm`.`meta_value`
+    end
+  ) AS `event_accomodation_description`,
+  max(
+    case
       when `pm`.`meta_key` = 'event_possible_location' then `pm`.`meta_value`
     end
   ) AS `event_possible_location`,
