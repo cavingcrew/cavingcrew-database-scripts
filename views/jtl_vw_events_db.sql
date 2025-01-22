@@ -206,6 +206,32 @@ select
       when `pm`.`meta_key` = 'event_volunteering_how_does_it_work' then `pm`.`meta_value`
     end
   ) AS `event_volunteering_how_does_it_work`,
+  /* Event Requirements Fields - Added 2024-03-15 */
+  max(
+    case
+      when `pm`.`meta_key` = 'membership_required' then `pm`.`meta_value`
+    end
+  ) AS `membership_required`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_min_skills' then `pm`.`meta_value`
+    end
+  ) AS `event_min_skills`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_min_gear' then `pm`.`meta_value`
+    end
+  ) AS `event_min_gear`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_for_u18s' then `pm`.`meta_value`
+    end
+  ) AS `event_for_u18s`,
+  max(
+    case
+      when `pm`.`meta_key` = 'event_prior_experience' then `pm`.`meta_value`
+    end
+  ) AS `event_prior_experience`,
   max(
     case
       when `pm`.`meta_key` = 'trip_faq_19_trip_faq_title' then `pm`.`meta_value`
