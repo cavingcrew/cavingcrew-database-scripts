@@ -209,11 +209,6 @@ select
   /* Event Requirements Fields - Added 2024-03-15 */
   max(
     case
-      when `pm`.`meta_key` = 'membership_required' then `pm`.`meta_value`
-    end
-  ) AS `membership_required`,
-  max(
-    case
       when `pm`.`meta_key` = 'event_min_skills' then `pm`.`meta_value`
     end
   ) AS `event_min_skills`,
