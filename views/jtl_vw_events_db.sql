@@ -65,6 +65,17 @@ select
       on o.ID = oi.order_id
       and o.post_status = 'wc-processing'
   ) AS `open_spaces`,
+  (
+    select count(distinct oi.order_item_id)
+    from `jtl_cavingcrew_com`.`jtl_woocommerce_order_items` oi
+    join `jtl_cavingcrew_com`.`jtl_woocommerce_order_itemmeta` oim 
+      on oi.order_item_id = oim.order_item_id
+      and oim.meta_key = '_product_id'
+      and oim.meta_value = p.ID
+    join `jtl_cavingcrew_com`.`jtl_posts` o 
+      on o.ID = oi.order_id
+      and o.post_status = 'wc-processing'
+  ) AS `pending_orders`,
   max(
     case
       when `pm`.`meta_key` = '_stock_status' then `pm`.`meta_value`
