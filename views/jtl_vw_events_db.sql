@@ -222,7 +222,7 @@ select
     case
       when `pm`.`meta_key` = 'event_non-members_welcome' then `pm`.`meta_value`
     end
-  ) AS `event_non-members_welcome`,
+  ) AS `event_non_members_welcome`,
   max(
     case
       when `pm`.`meta_key` = 'event_why_are_only_members_allowed' then `pm`.`meta_value`
