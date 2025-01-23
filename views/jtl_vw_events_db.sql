@@ -30,13 +30,19 @@ select
         select
           sum(cast(`pmv_stock`.`meta_value` as unsigned))
         from
-          `jtl_cavingcrew_com`.`jtl_posts` `v`
-          left join `jtl_cavingcrew_com`.`jtl_postmeta` `pmv_manage` 
-            on `v`.`ID` = `pmv_manage`.`post_id`
-            and `pmv_manage`.`meta_key` = '_manage_stock'
-          left join `jtl_cavingcrew_com`.`jtl_postmeta` `pmv_stock`
-            on `v`.`ID` = `pmv_stock`.`post_id`
-            and `pmv_stock`.`meta_key` = '_stock'
+          (
+            (
+              `jtl_cavingcrew_com`.`jtl_posts` `v`
+              left join `jtl_cavingcrew_com`.`jtl_postmeta` `pmv_manage` on (
+                `v`.`ID` = `pmv_manage`.`post_id`
+                and `pmv_manage`.`meta_key` = '_manage_stock'
+              )
+            )
+            left join `jtl_cavingcrew_com`.`jtl_postmeta` `pmv_stock` on (
+              `v`.`ID` = `pmv_stock`.`post_id`
+              and `pmv_stock`.`meta_key` = '_stock'
+            )
+          )
         where
           `v`.`post_parent` = `p`.`ID`
           and `v`.`post_type` = 'product_variation'
@@ -44,11 +50,14 @@ select
       ),
       case
         when (
-          select meta_value 
-          from `jtl_cavingcrew_com`.`jtl_postmeta` 
-          where post_id = `p`.`ID`
-            and meta_key = '_manage_stock'
-            and meta_value = 'yes'
+          select
+            `jtl_cavingcrew_com`.`jtl_postmeta`.`meta_value`
+          from
+            `jtl_cavingcrew_com`.`jtl_postmeta`
+          where
+            `jtl_cavingcrew_com`.`jtl_postmeta`.`post_id` = `p`.`ID`
+            and `jtl_cavingcrew_com`.`jtl_postmeta`.`meta_key` = '_manage_stock'
+            and `jtl_cavingcrew_com`.`jtl_postmeta`.`meta_value` = 'yes'
         ) then max(cast(`pm`.`meta_value` as unsigned))
         else 0
       end
