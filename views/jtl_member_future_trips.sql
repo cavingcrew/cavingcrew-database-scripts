@@ -5,7 +5,7 @@ select
   count(`o1`.`order_item_name`) AS `total_upcoming_trips`,
   max(
     case
-      when `o1`.`rn` = 1 then SUBSTRING_INDEX(`o1`.`order_item_name`, ' - ', 1)
+      when `o1`.`rn` = 1 then substring_index(`o1`.`order_item_name`, ' - ', 1)
     end
   ) AS `next_trip_1`,
   max(
@@ -15,7 +15,7 @@ select
   ) AS `trip_1_date`,
   max(
     case
-      when `o1`.`rn` = 2 then SUBSTRING_INDEX(`o1`.`order_item_name`, ' - ', 1)
+      when `o1`.`rn` = 2 then substring_index(`o1`.`order_item_name`, ' - ', 1)
     end
   ) AS `next_trip_2`,
   max(
@@ -25,7 +25,7 @@ select
   ) AS `trip_2_date`,
   max(
     case
-      when `o1`.`rn` = 3 then SUBSTRING_INDEX(`o1`.`order_item_name`, ' - ', 1)
+      when `o1`.`rn` = 3 then substring_index(`o1`.`order_item_name`, ' - ', 1)
     end
   ) AS `next_trip_3`,
   max(
@@ -63,7 +63,7 @@ where
     from
       `jtl_cavingcrew_com`.`jtl_order_product_customer_lookup`
     where
-      `jtl_order_product_customer_lookup`.`cc_start_date` >= current_timestamp() - interval 1 year
+      `jtl_order_product_customer_lookup`.`cc_start_date` >= current_timestamp() - interval 6 month
       and (
         `m`.`cc_membership_cancellation_intent_date` is null
         or `m`.`cc_membership_cancellation_intent_date` = ''
