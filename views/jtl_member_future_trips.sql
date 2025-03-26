@@ -2,6 +2,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `jtl_mem
 SELECT
   m.ID AS user_id,
   CONCAT(m.first_name, ' ', m.last_name) AS member_name,
+  COUNT(o1.order_item_name) AS total_upcoming_trips,
   MAX(CASE WHEN o1.rn = 1 THEN o1.order_item_name END) AS next_trip_1,
   MAX(CASE WHEN o1.rn = 1 THEN o1.cc_start_date END) AS trip_1_date,
   MAX(CASE WHEN o1.rn = 2 THEN o1.order_item_name END) AS next_trip_2,
@@ -32,3 +33,6 @@ WHERE m.cc_member = 'yes'
         OR cc_membership_cancellation_intent_date = '')
    )
 GROUP BY m.ID
+ORDER BY 
+  CASE WHEN m.cc_member = 'yes' THEN 0 ELSE 1 END,  -- Members first
+  total_upcoming_trips DESC  -- Most trips first
