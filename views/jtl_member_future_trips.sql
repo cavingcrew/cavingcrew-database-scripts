@@ -5,7 +5,7 @@ select
   count(`o1`.`order_item_name`) AS `total_upcoming_trips`,
   max(
     case
-      when `o1`.`rn` = 1 then `o1`.`order_item_name`
+      when `o1`.`rn` = 1 then SUBSTRING_INDEX(`o1`.`order_item_name`, ' - ', 1)
     end
   ) AS `next_trip_1`,
   max(
@@ -15,7 +15,7 @@ select
   ) AS `trip_1_date`,
   max(
     case
-      when `o1`.`rn` = 2 then `o1`.`order_item_name`
+      when `o1`.`rn` = 2 then SUBSTRING_INDEX(`o1`.`order_item_name`, ' - ', 1)
     end
   ) AS `next_trip_2`,
   max(
@@ -25,7 +25,7 @@ select
   ) AS `trip_2_date`,
   max(
     case
-      when `o1`.`rn` = 3 then `o1`.`order_item_name`
+      when `o1`.`rn` = 3 then SUBSTRING_INDEX(`o1`.`order_item_name`, ' - ', 1)
     end
   ) AS `next_trip_3`,
   max(
