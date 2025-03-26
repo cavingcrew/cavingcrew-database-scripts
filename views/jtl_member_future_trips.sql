@@ -61,9 +61,10 @@ where
     select distinct
       `jtl_order_product_customer_lookup`.`user_id`
     from
-      `jtl_cavingcrew_com`.`jtl_order_product_customer_lookup`
+      `jtl_cavingcrew_com`.`jtl_order_product_customer_lookup` `lookup`
     where
-      `jtl_order_product_customer_lookup`.`cc_start_date` >= current_timestamp() - interval 6 month
+      `lookup`.`cc_start_date` >= current_timestamp() - interval 6 month
+      and `lookup`.`user_id` = `m`.`ID`
       and (
         `m`.`cc_membership_cancellation_intent_date` is null
         or `m`.`cc_membership_cancellation_intent_date` = ''
